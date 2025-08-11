@@ -1,0 +1,45 @@
+[package]
+name = "zakat-api"
+version = "1.0.0"
+edition = "2021"
+
+[[bin]]
+name = "zakat-api"
+path = "src/main.rs"
+
+[dependencies]
+# Workspace dependencies
+shared = { path = "../shared" }
+
+# Web framework
+axum = { workspace = true }
+tokio = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+hyper = { workspace = true }
+
+# Database
+sqlx = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Time handling
+chrono = { workspace = true }
+
+# Utilities
+uuid = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+config = { workspace = true }
+dotenv = { workspace = true }
+
+# Validation
+validator = { workspace = true }
+
+# Decimal calculations with database support
+rust_decimal = { workspace = true }
+rust_decimal_macros = { workspace = true }
