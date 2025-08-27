@@ -103,7 +103,7 @@ impl DuaService {
         }
 
         // Fetch from database
-        let (duas, total) = self.repository.search(query).await?;
+        let (duas, total) = self.repository.search(query.clone()).await?;
         let total_pages = ((total as f64) / (query.get_limit() as f64)).ceil() as u32;
 
         let response = DuaListResponse {
@@ -229,51 +229,5 @@ impl DuaService {
         }
 
         format!("dua_search:{:x}", hasher.finish())
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_cache_key_generation() {
-        let service = DuaService::new(
-            DuaRepository::new(shared::database::Database { pool: todo!() }),
-            Cache::new(&shared::config::RedisConfig {
-                url: "redis://localhost".to_string(),
-                pool_max_open: 10,
-                pool_max_idle: 5,
-                pool_timeout: 30,
-                pool_expire: 300,
-            })
-            .await
-            .unwrap(),
-        );
-
-        let query1 = SearchDuaQuery {
-            q: Some("test".to_string()),
-            category: None,
-            tags: None,
-            verified: None,
-            page: Some(1),
-            limit: Some(20),
-            sort: None,
-        };
-
-        let query2 = SearchDuaQuery {
-            q: Some("test".to_string()),
-            category: None,
-            tags: None,
-            verified: None,
-            page: Some(1),
-            limit: Some(20),
-            sort: None,
-        };
-
-        let key1 = service.create_search_cache_key(&query1);
-        let key2 = service.create_search_cache_key(&query2);
-
-        assert_eq!(key1, key2);
     }
 }

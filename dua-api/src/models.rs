@@ -4,7 +4,7 @@ use sqlx::FromRow;
 use uuid::Uuid;
 use validator::Validate;
 
-#[derive(Debug, Clone, Serialize, FromRow)]
+#[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 pub struct Dua {
     pub id: Uuid,
     pub title: String,
@@ -104,7 +104,7 @@ pub struct UpdateDuaRequest {
     pub audio_url: Option<String>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct SearchDuaQuery {
     pub q: Option<String>,
     pub category: Option<String>,
@@ -116,6 +116,7 @@ pub struct SearchDuaQuery {
 }
 
 #[derive(Debug, Deserialize)]
+#[derive(Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum DuaSortOrder {
     CreatedAsc,
@@ -126,7 +127,7 @@ pub enum DuaSortOrder {
     CategoryDesc,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DuaListResponse {
     pub duas: Vec<Dua>,
     pub total: i64,
@@ -140,19 +141,19 @@ pub struct DuaResponse {
     pub dua: Dua,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DuaCategoriesResponse {
     pub categories: Vec<DuaCategory>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DuaCategory {
     pub name: String,
     pub count: i64,
     pub description: Option<String>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DuaStatsResponse {
     pub total_duas: i64,
     pub verified_duas: i64,
@@ -213,7 +214,7 @@ impl SearchDuaQuery {
         (self.get_page() - 1) * self.get_limit()
     }
 
-    pub fn get_sort_order(&self) -> &DuaSortOrder {
-        self.sort.as_ref().unwrap_or(&DuaSortOrder::default())
+    pub fn get_sort_order(&self) -> DuaSortOrder {
+        self.sort.clone().unwrap_or_default()
     }
 }

@@ -1,20 +1,19 @@
 use axum::{
     middleware,
     routing::{get, post},
-    serve, Extension, Router,
+    Extension, Router, Server,
 };
 use dotenv::dotenv;
 use shared::{
     cache::Cache,
     config::AppConfig,
     middleware::{
-        compression_layer, cors_layer, rate_limit_middleware, timeout_layer, trace_layer,
+        cors_layer, rate_limit_middleware, timeout_layer, trace_layer,
     },
-    rate_limit::RateLimiter,
+    SimpleRateLimiter,
     ApiResult,
 };
 use std::net::SocketAddr;
-use tokio::net::TcpListener;
 use tracing::{info, level_filters::LevelFilter};
 use tracing_subscriber::{EnvFilter, FmtSubscriber};
 
@@ -53,7 +52,7 @@ async fn main() -> ApiResult<()> {
     info!("Cache connected successfully");
 
     // Initialize rate limiter
-    let rate_limiter = RateLimiter::new(cache.clone(), config.rate_limit.clone());
+    let rate_limiter = SimpleRateLimiter::new(cache.clone(), config.rate_limit.clone());
 
     // Build the application
     let app = Router::new()
@@ -64,7 +63,6 @@ async fn main() -> ApiResult<()> {
             rate_limiter.clone(),
             rate_limit_middleware,
         ))
-        .layer(compression_layer())
         .layer(timeout_layer())
         .layer(cors_layer())
         .layer(trace_layer())
@@ -74,12 +72,9 @@ async fn main() -> ApiResult<()> {
     let addr: SocketAddr = config.bind_address().parse()?;
     info!("Starting Qibla API server on {}", addr);
 
-    let listener = TcpListener::bind(&addr).await?;
-    serve(
-        listener,
-        app.into_make_service_with_connect_info::<SocketAddr>(),
-    )
-    .await?;
+    Server::bind(&addr)
+        .serve(app.into_make_service_with_connect_info::<SocketAddr>())
+        .await?;
 
     Ok(())
 }

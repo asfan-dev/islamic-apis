@@ -19,6 +19,7 @@ config.workspace = true
 dotenv.workspace = true
 validator.workspace = true
 redis.workspace = true
+chrono.workspace = true  # Added missing chrono dependency
 
 # Local dependencies
 shared = { path = "../shared" }

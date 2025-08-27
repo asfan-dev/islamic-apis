@@ -7,7 +7,7 @@ use validator::Validate;
 
 use crate::{
     calculations::QiblaCalculator,
-    models::{QiblaRequest, QiblaResponse},
+    models::QiblaRequest,
 };
 
 #[derive(Debug, Deserialize)]
@@ -24,15 +24,17 @@ pub async fn qibla_handler(
     body: Option<Json<QiblaRequest>>,
 ) -> ApiResult<Json<serde_json::Value>> {
     // Handle both GET (query params) and POST (JSON body) requests
-    let request = if let Some(Json(req)) = body {
-        req
-    } else if let Some(Query(params)) = query {
+    let (request, detailed) = if let Some(Json(req)) = body {
+        (req, false) // Default detailed to false for JSON body
+    } else if let Some(Query(ref params)) = query {
         if let (Some(lat), Some(lng)) = (params.lat, params.lng) {
-            QiblaRequest {
+            let request = QiblaRequest {
                 latitude: lat,
                 longitude: lng,
                 elevation: params.elevation,
-            }
+            };
+            let detailed = params.detailed.unwrap_or(false);
+            (request, detailed)
         } else {
             return Err(shared::error::ApiError::InvalidInput(
                 "Latitude and longitude are required as 'lat' and 'lng' parameters".to_string(),
@@ -55,7 +57,6 @@ pub async fn qibla_handler(
         .map_err(|e| shared::error::ApiError::Validation(format!("Validation failed: {}", e)))?;
 
     // Create cache key
-    let detailed = query.as_ref().and_then(|q| q.detailed).unwrap_or(false);
     let cache_key = create_cache_key(&request, detailed);
 
     // Try to get from cache first

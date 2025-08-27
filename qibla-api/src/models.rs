@@ -1,16 +1,14 @@
 use serde::{Deserialize, Serialize};
-use shared::validation::{validate_elevation, validate_latitude, validate_longitude};
-use validator::{Validate, ValidationError};
+use validator::Validate;
 
 #[derive(Debug, Deserialize, Validate)]
 pub struct QiblaRequest {
-    #[validate(custom = "validate_latitude_field")]
+    #[validate(range(min = -90.0, max = 90.0))]
     pub latitude: f64,
 
-    #[validate(custom = "validate_longitude_field")]
+    #[validate(range(min = -180.0, max = 180.0))]
     pub longitude: f64,
 
-    #[validate(custom = "validate_elevation_field")]
     pub elevation: Option<f64>,
 }
 
@@ -53,22 +51,6 @@ pub struct CoordinatesValidation {
     pub is_valid: bool,
     pub warnings: Vec<String>,
     pub suggestions: Vec<String>,
-}
-
-// Validation functions
-fn validate_latitude_field(lat: &f64) -> Result<(), ValidationError> {
-    validate_latitude(*lat).map_err(|_| ValidationError::new("invalid_latitude"))
-}
-
-fn validate_longitude_field(lng: &f64) -> Result<(), ValidationError> {
-    validate_longitude(*lng).map_err(|_| ValidationError::new("invalid_longitude"))
-}
-
-fn validate_elevation_field(elevation: &Option<f64>) -> Result<(), ValidationError> {
-    if let Some(elev) = elevation {
-        validate_elevation(*elev).map_err(|_| ValidationError::new("invalid_elevation"))?;
-    }
-    Ok(())
 }
 
 impl QiblaRequest {

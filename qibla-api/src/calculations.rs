@@ -1,11 +1,10 @@
-use libm::{acos, asin, atan2, cos, sin, sqrt};
-use shared::error::{ApiError, ApiResult};
+use libm::{asin, atan2, cos, sin, sqrt};
+use shared::error::ApiResult;
 
 use crate::models::{CoordinatesValidation, LocationInfo, QiblaDetailed, QiblaResponse};
 
 const PI: f64 = std::f64::consts::PI;
 const EARTH_RADIUS_KM: f64 = 6371.0;
-const EARTH_RADIUS_MILES: f64 = 3959.0;
 
 // Kaaba coordinates (most precise available)
 const KAABA_LATITUDE: f64 = 21.4224779;
@@ -199,7 +198,7 @@ impl QiblaCalculator {
     fn validate_coordinates(&self) -> CoordinatesValidation {
         let mut warnings = Vec::new();
         let mut suggestions = Vec::new();
-        let mut is_valid = true;
+        let is_valid = true;
 
         // Check if coordinates are at exactly 0,0 (often indicates missing data)
         if self.latitude == 0.0 && self.longitude == 0.0 {
@@ -269,9 +268,11 @@ mod tests {
         let calculator = QiblaCalculator::new(40.7128, -74.0060, 10.0);
         let result = calculator.calculate_qibla_direction().unwrap();
         
+        println!("New York to Kaaba - Direction: {}°, Distance: {} km", result.qibla_direction, result.distance_km);
         // New York to Mecca should be roughly northeast (around 58 degrees)
         assert!(result.qibla_direction > 50.0 && result.qibla_direction < 70.0);
-        assert!(result.distance_km > 11000.0 && result.distance_km < 12000.0);
+        // Distance should be around 10,305-10,324 km based on real-world data
+        assert!(result.distance_km > 10200.0 && result.distance_km < 10400.0);
     }
 
     #[test]
@@ -289,9 +290,11 @@ mod tests {
         let calculator = QiblaCalculator::new(24.8607, 67.0011, 8.0);
         let result = calculator.calculate_qibla_direction().unwrap();
         
+        println!("Karachi to Kaaba - Direction: {}°, Distance: {} km", result.qibla_direction, result.distance_km);
         // Karachi to Mecca should be roughly west (around 270 degrees)
         assert!(result.qibla_direction > 250.0 && result.qibla_direction < 290.0);
-        assert!(result.distance_km > 1200.0 && result.distance_km < 1400.0);
+        // Distance should be around 2,805-2,810 km based on real-world data
+        assert!(result.distance_km > 2700.0 && result.distance_km < 2900.0);
     }
 
     #[test]
@@ -299,8 +302,10 @@ mod tests {
         let calculator = QiblaCalculator::new(0.0, 0.0, 0.0);
         let distance = calculator.calculate_distance_to_kaaba().unwrap();
         
-        // Distance from equator/prime meridian to Mecca
-        assert!(distance > 2400.0 && distance < 2600.0);
+        println!("Distance from (0,0) to Kaaba: {} km", distance);
+        // Distance from equator/prime meridian to Mecca (21.42°N, 39.83°E) 
+        // Actual calculated distance is approximately 4932.77 km
+        assert!(distance > 4900.0 && distance < 5000.0);
     }
 
     #[test]

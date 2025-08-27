@@ -1,7 +1,8 @@
-use chrono::{DateTime, Datelike, FixedOffset, NaiveDate};
+use chrono::{DateTime, Offset, Datelike, FixedOffset, NaiveDate};
 use hijri_date::HijriDate;
 use libm::{acos, asin, atan, atan2, cos, floor, sin, sqrt, tan};
 use shared::error::{ApiError, ApiResult};
+use tracing::{debug, info, warn};
 
 use crate::models::{
     Adjustments, Coordinates, HighLatitudeRule, MethodSettings, Midnight, MinuteOrAngle, School,
@@ -11,22 +12,27 @@ use crate::models::{
 const PI: f64 = std::f64::consts::PI;
 
 // Math utility functions
+/// Converts degrees to radians.
 fn dtr(degrees: f64) -> f64 {
     degrees * PI / 180.0
 }
 
+/// Converts radians to degrees.
 fn rtd(radians: f64) -> f64 {
     radians * 180.0 / PI
 }
 
+/// Normalizes an angle to be within [0, 360).
 fn fix_angle(angle: f64) -> f64 {
     fix(angle, 360.0)
 }
 
+/// Normalizes a time value to be within [0, 24).
 fn fix_hour(hour: f64) -> f64 {
     fix(hour, 24.0)
 }
 
+/// Generic normalization function.
 fn fix(a: f64, b: f64) -> f64 {
     let a = a - b * floor(a / b);
     if a < 0.0 {
@@ -59,7 +65,24 @@ impl PrayerCalculator {
         &self,
         date: DateTime<FixedOffset>,
     ) -> ApiResult<super::models::PrayerTimes> {
+        info!("Starting prayer time calculation for date: {}", date);
+        
+        // Compute the raw floating-point prayer times
         let times = self.compute_times(date)?;
+        
+        debug!("Raw prayer times (floating point):");
+        debug!("  Imsak: {}", times.imsak);
+        debug!("  Fajr: {}", times.fajr);
+        debug!("  Sunrise: {}", times.sunrise);
+        debug!("  Dhuhr: {}", times.dhuhr);
+        debug!("  Asr: {}", times.asr);
+        debug!("  Sunset: {}", times.sunset);
+        debug!("  Maghrib: {}", times.maghrib);
+        debug!("  Isha: {}", times.isha);
+        debug!("  Midnight: {}", times.midnight);
+        debug!("  First Third: {}", times.first_third);
+        debug!("  Last Third: {}", times.last_third);
+        
         let hijri = self.calculate_hijri_date(date.date_naive())?;
 
         Ok(super::models::PrayerTimes {
@@ -98,26 +121,39 @@ impl PrayerCalculator {
 
     fn compute_times(&self, date: DateTime<FixedOffset>) -> ApiResult<RawPrayerTimes> {
         let jd = self.julian_date(date)?;
+        debug!("Julian Date: {}", jd);
+
         let (eqt, decl) = self.sun_position(jd);
+        debug!("Equation of Time (eqt): {}, Declination (decl): {}", eqt, decl);
 
         let mut times = RawPrayerTimes::default();
 
-        // Calculate basic times
+        // Dhuhr calculation
         times.dhuhr = self.mid_day(eqt);
-        times.sunrise = self.sun_angle_time(self.rise_set_angle(), eqt, decl, -1.0)?;
-        times.sunset = self.sun_angle_time(self.rise_set_angle(), eqt, decl, 1.0)?;
 
-        // Fajr
+        // Sunrise and Sunset calculation
+        let rise_set_angle = self.rise_set_angle();
+        debug!("Rise/Set Angle: {}", rise_set_angle);
+        times.sunrise = self.sun_angle_time(rise_set_angle, eqt, decl, -1.0)?;
+        times.sunset = self.sun_angle_time(rise_set_angle, eqt, decl, 1.0)?;
+
+        // Fajr calculation
+        let fajr_angle = match self.method_settings.imsak {
+            MinuteOrAngle::Angle { angle } => angle,
+            _ => self.method_settings.fajr,
+        };
         times.fajr = self.sun_angle_time(self.method_settings.fajr, eqt, decl, -1.0)?;
 
-        // Asr
+        // Asr calculation
         let asr_factor = match self.method_settings.school {
             School::Standard => 1.0,
             School::Hanafi => 2.0,
         };
+        debug!("Asr shadow factor: {}, Asr Angle: {}", asr_factor, 
+            rtd(atan(1.0 / (asr_factor + tan((dtr(self.coordinates.latitude) - dtr(decl)).abs())))));
         times.asr = self.asr_time(asr_factor, eqt, decl)?;
 
-        // Maghrib
+        // Maghrib calculation
         match &self.method_settings.maghrib {
             MinuteOrAngle::Angle { angle } => {
                 times.maghrib = self.sun_angle_time(*angle, eqt, decl, 1.0)?;
@@ -127,7 +163,7 @@ impl PrayerCalculator {
             }
         }
 
-        // Isha
+        // Isha calculation
         match &self.method_settings.isha {
             MinuteOrAngle::Angle { angle } => {
                 times.isha = self.sun_angle_time(*angle, eqt, decl, 1.0)?;
@@ -137,7 +173,7 @@ impl PrayerCalculator {
             }
         }
 
-        // Imsak
+        // Imsak calculation
         match &self.method_settings.imsak {
             MinuteOrAngle::Angle { angle } => {
                 times.imsak = self.sun_angle_time(*angle, eqt, decl, -1.0)?;
@@ -149,11 +185,13 @@ impl PrayerCalculator {
 
         // Apply high latitude adjustments
         if let Some(rule) = self.method_settings.high_lat {
+            debug!("Applying high latitude rule: {:?}", rule);
             times = self.adjust_high_latitudes(times, rule)?;
         }
 
-        // Calculate night portions
+        // Calculate night portions for Midnight, First Third, Last Third
         let night_length = fix_hour(times.sunrise - times.sunset);
+        debug!("Night length: {} hours", night_length);
         match self.method_settings.midnight {
             Midnight::Standard => {
                 times.midnight = times.sunset + night_length / 2.0;
@@ -168,6 +206,7 @@ impl PrayerCalculator {
 
         // Apply longitude adjustment
         let lng_diff = self.coordinates.longitude / 15.0;
+        debug!("Longitude difference adjustment: {} hours", lng_diff);
         times.imsak = fix_hour(times.imsak - lng_diff);
         times.fajr = fix_hour(times.fajr - lng_diff);
         times.sunrise = fix_hour(times.sunrise - lng_diff);
@@ -196,11 +235,13 @@ impl PrayerCalculator {
         let a = floor(year as f64 / 100.0);
         let b = 2.0 - a + floor(a / 4.0);
 
-        Ok(floor(365.25 * (year as f64 + 4716.0))
+        let jd = floor(365.25 * (year as f64 + 4716.0))
             + floor(30.6001 * (month as f64 + 1.0))
             + day as f64
             + b
-            - 1524.5)
+            - 1524.5;
+        
+        Ok(jd)
     }
 
     fn sun_position(&self, jd: f64) -> (f64, f64) {
@@ -208,8 +249,8 @@ impl PrayerCalculator {
         let g = fix_angle(357.529 + 0.98560028 * d);
         let q = fix_angle(280.459 + 0.98564736 * d);
         let l = fix_angle(q + 1.915 * sin(dtr(g)) + 0.020 * sin(dtr(2.0 * g)));
-
         let e = 23.439 - 0.00000036 * d;
+
         let ra = rtd(atan2(cos(dtr(e)) * sin(dtr(l)), cos(dtr(l)))) / 15.0;
         let eqt = q / 15.0 - fix_hour(ra);
         let decl = rtd(asin(sin(dtr(e)) * sin(dtr(l))));
@@ -229,6 +270,9 @@ impl PrayerCalculator {
         let p2 = cos(dtr(decl)) * cos(lat);
 
         if p2 == 0.0 {
+            // This happens at the poles where cos(lat) is 0
+            // and `cos(decl)` can be 0 depending on the time of year
+            warn!("Division by zero in sun angle calculation (p2 is 0)");
             return Err(ApiError::Calculation(
                 "Division by zero in sun angle calculation".to_string(),
             ));
@@ -243,13 +287,14 @@ impl PrayerCalculator {
     fn asr_time(&self, factor: f64, eqt: f64, decl: f64) -> ApiResult<f64> {
         let lat = dtr(self.coordinates.latitude);
         let decl_rad = dtr(decl);
+        let angle = rtd(atan(1.0 / (factor + tan((lat - decl_rad).abs()))));
+        debug!("Asr shadow factor: {}, Asr Angle: {}", factor, angle);
 
-        let angle = -rtd(atan(1.0 / (factor + tan((lat - decl_rad).abs()))));
         self.sun_angle_time(angle, eqt, decl, 1.0)
     }
 
     fn rise_set_angle(&self) -> f64 {
-        0.833 + 0.0347 * sqrt(self.coordinates.elevation)
+        0.833 + 0.0347 * sqrt(self.coordinates.elevation.abs())
     }
 
     fn adjust_high_latitudes(
@@ -257,78 +302,106 @@ impl PrayerCalculator {
         mut times: RawPrayerTimes,
         rule: HighLatitudeRule,
     ) -> ApiResult<RawPrayerTimes> {
+        debug!("Starting high latitude adjustments");
+        let fajr_angle = self.method_settings.fajr;
+        let isha_angle = match self.method_settings.isha {
+            MinuteOrAngle::Angle { angle } => angle,
+            _ => 18.0, // Default to a standard angle if it's a minute-based method
+        };
+
         let night_time = fix_hour(times.sunrise - times.sunset);
+        debug!("Night time length for adjustments: {} hours", night_time);
 
         match rule {
             HighLatitudeRule::NightMiddle => {
                 let portion = night_time / 2.0;
+                debug!("Night Middle adjustment portion: {} hours", portion);
                 if times.fajr.is_nan() || fix_hour(times.sunrise - times.fajr) > portion {
                     times.fajr = times.sunrise - portion;
+                    debug!("Fajr adjusted to: {}", times.fajr);
                 }
                 if times.isha.is_nan() || fix_hour(times.isha - times.sunset) > portion {
                     times.isha = times.sunset + portion;
+                    debug!("Isha adjusted to: {}", times.isha);
                 }
             }
             HighLatitudeRule::OneSeventh => {
                 let portion = night_time / 7.0;
+                debug!("One Seventh adjustment portion: {} hours", portion);
                 if times.fajr.is_nan() || fix_hour(times.sunrise - times.fajr) > portion {
                     times.fajr = times.sunrise - portion;
+                    debug!("Fajr adjusted to: {}", times.fajr);
                 }
                 if times.isha.is_nan() || fix_hour(times.isha - times.sunset) > portion {
                     times.isha = times.sunset + portion;
+                    debug!("Isha adjusted to: {}", times.isha);
                 }
             }
             HighLatitudeRule::AngleBased => {
-                let fajr_portion = self.method_settings.fajr / 60.0 * night_time;
-                let isha_angle = match &self.method_settings.isha {
-                    MinuteOrAngle::Angle { angle } => *angle,
-                    MinuteOrAngle::Minute { .. } => 18.0, // Default fallback
-                };
+                let fajr_portion = fajr_angle / 60.0 * night_time;
                 let isha_portion = isha_angle / 60.0 * night_time;
+                debug!("Angle Based Fajr portion: {} hours, Isha portion: {} hours", fajr_portion, isha_portion);
 
                 if times.fajr.is_nan() || fix_hour(times.sunrise - times.fajr) > fajr_portion {
                     times.fajr = times.sunrise - fajr_portion;
+                    debug!("Fajr adjusted to: {}", times.fajr);
                 }
                 if times.isha.is_nan() || fix_hour(times.isha - times.sunset) > isha_portion {
                     times.isha = times.sunset + isha_portion;
+                    debug!("Isha adjusted to: {}", times.isha);
                 }
             }
         }
-
         Ok(times)
     }
 
     fn calculate_hijri_date(&self, date: NaiveDate) -> ApiResult<HijriDate> {
-        // Fix type conversion for HijriDate::from_gr
-        HijriDate::from_gr(
-            date.year().try_into().unwrap(),
-            date.month().try_into().unwrap(),
-            date.day().try_into().unwrap(),
-        )
-        .map_err(|e| ApiError::Calculation(format!("Failed to calculate Hijri date: {}", e)))
+        let year: i16 = date.year().try_into().map_err(|e| {
+            ApiError::Calculation(format!("Failed to convert year to i16: {}", e))
+        })?;
+        let month: u8 = date.month().try_into().map_err(|e| {
+            ApiError::Calculation(format!("Failed to convert month to u8: {}", e))
+        })?;
+        let day: u8 = date.day().try_into().map_err(|e| {
+            ApiError::Calculation(format!("Failed to convert day to u8: {}", e))
+        })?;
+
+        HijriDate::from_gr(year.try_into().unwrap(), month.into(), day.into())
+            .map_err(|e| ApiError::Calculation(format!("Failed to calculate Hijri date: {}", e)))
     }
 
     fn format_time(&self, time: f64, date: DateTime<FixedOffset>, adjustment: i8) -> String {
-        let hours = time.floor() as i32;
-        let minutes = ((time - time.floor()) * 60.0).round() as i32;
+        debug!("Entering format_time for raw time: {}", time);
+        debug!("Adjustment: {}", adjustment);
 
-        let adjusted_minutes = minutes + adjustment as i32;
-        let (final_hours, final_minutes) = if adjusted_minutes >= 60 {
-            ((hours + 1) % 24, adjusted_minutes - 60)
-        } else if adjusted_minutes < 0 {
-            ((hours - 1 + 24) % 24, adjusted_minutes + 60)
-        } else {
-            (hours, adjusted_minutes)
-        };
+        if time.is_nan() {
+            warn!("Time is NaN, returning 'Invalid Time'");
+            return "Invalid Time".to_string();
+        }
 
-        let dt = date
-            .date_naive()
-            .and_hms_opt(final_hours as u32, final_minutes as u32, 0)
-            .unwrap_or_else(|| date.date_naive().and_hms_opt(0, 0, 0).unwrap())
-            .and_local_timezone(date.offset().clone())
-            .unwrap();
+        let offset = date.offset();
+        debug!("Timezone offset: {} seconds", offset.local_minus_utc());
 
-        dt.format("%d/%m/%Y %H:%M").to_string()
+        let total_minutes = (time * 60.0).round() as i32 + adjustment as i32;
+        debug!("Total minutes (raw time * 60 + adjustment): {}", total_minutes);
+
+        // Convert total minutes to a duration and add to a naive date
+        let dt_with_mins = date.date_naive().and_hms_opt(0, 0, 0).unwrap()
+            + chrono::Duration::minutes(total_minutes as i64);
+
+        // Apply the timezone offset
+        let dt = dt_with_mins.and_local_timezone(*offset)
+            .single()
+            .unwrap_or_else(|| {
+                // If there's an ambiguity (like DST change), handle it gracefully
+                warn!("Ambiguous or non-existent time, using the first valid option.");
+                dt_with_mins.and_local_timezone(*offset).earliest().unwrap_or_default()
+            });
+
+        let formatted_time = dt.format("%d/%m/%Y %H:%M").to_string();
+        debug!("Formatted time string: {}", formatted_time);
+        
+        formatted_time
     }
 }
 
