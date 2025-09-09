@@ -1,6 +1,6 @@
 use axum::{
     middleware,
-    routing::{delete, get, post, put},
+    routing::{get, post},
     Extension, Router, Server,
 };
 use dotenv::dotenv;
@@ -23,10 +23,7 @@ mod models;
 mod repository;
 mod services;
 
-use handlers::{
-    create_dua, delete_dua, get_dua_by_id, get_duas, health_check, search_duas, update_dua,
-    get_categories, get_stats, verify_dua,
-};
+use handlers::*;
 
 #[tokio::main]
 async fn main() -> ApiResult<()> {
@@ -65,18 +62,52 @@ async fn main() -> ApiResult<()> {
     // Initialize rate limiter
     let rate_limiter = SimpleRateLimiter::new(cache.clone(), config.rate_limit.clone());
 
-    // Build the application
+    // Build the application router
     let app = Router::new()
-        .route("/api/v1/duas", get(get_duas))
-        .route("/api/v1/duas", post(create_dua))
-        .route("/api/v1/duas/:id", get(get_dua_by_id))
-        .route("/api/v1/duas/:id", put(update_dua))
-        .route("/api/v1/duas/:id", delete(delete_dua))
-        .route("/api/v1/duas/search", get(search_duas))
-        .route("/api/v1/duas/categories", get(get_categories))
-        .route("/api/v1/duas/stats", get(get_stats))
-        .route("/api/v1/duas/:id/verify", put(verify_dua))
+        // ===== DUA ENDPOINTS =====
+        .route("/v1/duas", get(list_duas))
+        .route("/v1/duas/random", get(get_random_dua))
+        .route("/v1/duas/:id", get(get_dua))
+        
+        // ===== TRANSLATION ENDPOINTS =====
+        .route("/v1/duas/:id/translations", get(get_dua_translations))
+        .route("/v1/translations", get(list_all_translations))
+        
+        // ===== CATEGORY ENDPOINTS =====
+        .route("/v1/categories", get(list_categories))
+        .route("/v1/categories/:slug", get(get_category))
+        .route("/v1/categories/:slug/duas", get(get_category_duas))
+        
+        // ===== TAG ENDPOINTS =====
+        .route("/v1/tags", get(list_tags))
+        .route("/v1/tags/:slug/duas", get(get_tag_duas))
+        
+        // ===== BUNDLE ENDPOINTS =====
+        .route("/v1/bundles", get(list_bundles))
+        .route("/v1/bundles/:slug", get(get_bundle))
+        .route("/v1/bundles/:slug/items", get(get_bundle_items))
+        
+        // ===== SOURCE ENDPOINTS =====
+        .route("/v1/sources", get(list_sources))
+        .route("/v1/sources/:id", get(get_source))
+        .route("/v1/sources/:id/duas", get(get_source_duas))
+        
+        // ===== MEDIA ENDPOINTS =====
+        .route("/v1/duas/:id/media", get(get_dua_media))
+        .route("/v1/media", get(search_media))
+        
+        // ===== SEARCH ENDPOINTS =====
+        .route("/v1/search", get(keyword_search))
+        .route("/v1/search/semantic", post(semantic_search))
+        .route("/v1/suggest", get(autocomplete))
+        
+        // ===== STATS ENDPOINT =====
+        .route("/v1/stats", get(get_stats))
+        
+        // ===== HEALTH CHECK =====
         .route("/health", get(health_check))
+        
+        // Apply middleware layers
         .layer(middleware::from_fn_with_state(
             rate_limiter.clone(),
             rate_limit_middleware,
@@ -89,7 +120,9 @@ async fn main() -> ApiResult<()> {
 
     // Start the server
     let addr: SocketAddr = config.bind_address().parse()?;
-    info!("Starting Dua API server on {}", addr);
+    info!("🚀 Starting Dua API server on {}", addr);
+    info!("📚 API Documentation available at http://{}/docs", addr);
+    info!("🏥 Health check available at http://{}/health", addr);
 
     Server::bind(&addr)
         .serve(app.into_make_service_with_connect_info::<SocketAddr>())

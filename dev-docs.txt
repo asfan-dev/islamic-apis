@@ -1,0 +1,28 @@
+-- Create the database
+CREATE DATABASE dua_db;
+
+-- Create the user with password
+CREATE USER dua_user WITH PASSWORD 'dua_password';
+
+-- Grant all privileges
+GRANT ALL PRIVILEGES ON DATABASE dua_db TO dua_user;
+
+-- Make dua_user the owner of the database
+ALTER DATABASE dua_db OWNER TO dua_user;
+
+-- Connect to the new database
+\c dua_db
+
+-- Grant schema permissions
+GRANT ALL ON SCHEMA public TO dua_user;
+
+-- Enable UUID extension (required for gen_random_uuid())
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
+
+
+
+
+
+psql -U dua_user -d dua_db

@@ -7,172 +7,386 @@ use shared::{
     database::Database,
     error::{ApiError, ApiResult},
 };
+use std::collections::HashMap;
 use tracing::info;
 use uuid::Uuid;
 use validator::Validate;
 
 use crate::{
-    models::{CreateDuaRequest, SearchDuaQuery, UpdateDuaRequest},
+    models::*,
     repository::DuaRepository,
     services::DuaService,
 };
 
-pub async fn create_dua(
+// ============= DUA ENDPOINTS =============
+
+pub async fn list_duas(
     Extension(database): Extension<Database>,
     Extension(cache): Extension<Cache>,
-    Json(request): Json<CreateDuaRequest>,
+    Query(params): Query<DuaQueryParams>,
 ) -> ApiResult<Json<serde_json::Value>> {
-    info!("Creating new dua: {}", request.title);
-
-    // Validate request
-    request
-        .validate()
-        .map_err(|e| ApiError::Validation(format!("Validation failed: {}", e)))?;
-
+    info!("Listing duas with params: {:?}", params);
+    
     let repository = DuaRepository::new(database);
     let service = DuaService::new(repository, cache);
-
-    let response = service.create_dua(request).await?;
+    
+    let response = service.list_duas_with_filters(params).await?;
     Ok(Json(serde_json::to_value(response)?))
 }
 
-pub async fn get_duas(
+pub async fn get_dua(
     Extension(database): Extension<Database>,
     Extension(cache): Extension<Cache>,
-    Query(query): Query<SearchDuaQuery>,
+    Path(id_or_slug): Path<String>,
+    Query(params): Query<HashMap<String, String>>,
 ) -> ApiResult<Json<serde_json::Value>> {
-    info!("Fetching duas with query: {:?}", query);
-
+    info!("Getting dua: {}", id_or_slug);
+    
     let repository = DuaRepository::new(database);
     let service = DuaService::new(repository, cache);
-
-    let response = service.search_duas(query).await?;
-    Ok(Json(serde_json::to_value(response)?))
-}
-
-pub async fn get_dua_by_id(
-    Extension(database): Extension<Database>,
-    Extension(cache): Extension<Cache>,
-    Path(id): Path<Uuid>,
-) -> ApiResult<Json<serde_json::Value>> {
-    info!("Fetching dua by ID: {}", id);
-
-    let repository = DuaRepository::new(database);
-    let service = DuaService::new(repository, cache);
-
-    match service.get_dua_by_id(id).await? {
-        Some(response) => Ok(Json(serde_json::to_value(response)?)),
-        None => Err(ApiError::NotFound(format!("Dua with ID {} not found", id))),
-    }
-}
-
-pub async fn update_dua(
-    Extension(database): Extension<Database>,
-    Extension(cache): Extension<Cache>,
-    Path(id): Path<Uuid>,
-    Json(request): Json<UpdateDuaRequest>,
-) -> ApiResult<Json<serde_json::Value>> {
-    info!("Updating dua with ID: {}", id);
-
-    // Validate request
-    request
-        .validate()
-        .map_err(|e| ApiError::Validation(format!("Validation failed: {}", e)))?;
-
-    let repository = DuaRepository::new(database);
-    let service = DuaService::new(repository, cache);
-
-    match service.update_dua(id, request).await? {
-        Some(response) => Ok(Json(serde_json::to_value(response)?)),
-        None => Err(ApiError::NotFound(format!("Dua with ID {} not found", id))),
-    }
-}
-
-pub async fn delete_dua(
-    Extension(database): Extension<Database>,
-    Extension(cache): Extension<Cache>,
-    Path(id): Path<Uuid>,
-) -> ApiResult<Json<serde_json::Value>> {
-    info!("Deleting dua with ID: {}", id);
-
-    let repository = DuaRepository::new(database);
-    let service = DuaService::new(repository, cache);
-
-    let deleted = service.delete_dua(id).await?;
-
-    if deleted {
-        Ok(Json(serde_json::json!({
-            "message": "Dua deleted successfully",
-            "id": id
-        })))
+    
+    // Check if it's a UUID or slug
+    let dua = if let Ok(id) = Uuid::parse_str(&id_or_slug) {
+        service.get_dua_by_id(id, params.get("include").cloned()).await?
     } else {
-        Err(ApiError::NotFound(format!("Dua with ID {} not found", id)))
+        service.get_dua_by_slug(&id_or_slug, params.get("include").cloned()).await?
+    };
+    
+    match dua {
+        Some(dua) => Ok(Json(serde_json::to_value(dua)?)),
+        None => Err(ApiError::NotFound(format!("Dua {} not found", id_or_slug))),
     }
 }
 
-pub async fn search_duas(
+pub async fn get_random_dua(
     Extension(database): Extension<Database>,
     Extension(cache): Extension<Cache>,
-    Query(query): Query<SearchDuaQuery>,
+    Query(params): Query<DuaQueryParams>,
 ) -> ApiResult<Json<serde_json::Value>> {
-    info!("Searching duas with query: {:?}", query);
-
+    info!("Getting random dua with filters");
+    
     let repository = DuaRepository::new(database);
     let service = DuaService::new(repository, cache);
+    
+    let dua = service.get_random_dua(params).await?;
+    
+    match dua {
+        Some(dua) => Ok(Json(serde_json::to_value(dua)?)),
+        None => Err(ApiError::NotFound("No duas found matching criteria".to_string())),
+    }
+}
 
-    let response = service.search_duas(query).await?;
+// ============= TRANSLATION ENDPOINTS =============
+
+pub async fn get_dua_translations(
+    Extension(database): Extension<Database>,
+    Path(id): Path<Uuid>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting translations for dua: {}", id);
+    
+    let repository = DuaRepository::new(database);
+    let translations = repository.get_dua_translations(id).await?;
+    
+    Ok(Json(serde_json::json!({
+        "dua_id": id,
+        "translations": translations,
+        "total": translations.len()
+    })))
+}
+
+pub async fn list_all_translations(
+    Extension(database): Extension<Database>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Listing all translations");
+    
+    let repository = DuaRepository::new(database);
+    let translations = repository.list_all_translations().await?;
+    
+    Ok(Json(serde_json::json!({
+        "translations": translations,
+        "total": translations.len()
+    })))
+}
+
+// ============= CATEGORY ENDPOINTS =============
+
+pub async fn list_categories(
+    Extension(database): Extension<Database>,
+    Extension(cache): Extension<Cache>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Listing categories");
+    
+    let repository = DuaRepository::new(database);
+    let service = DuaService::new(repository, cache);
+    
+    let categories = service.list_categories().await?;
+    Ok(Json(serde_json::to_value(categories)?))
+}
+
+pub async fn get_category(
+    Extension(database): Extension<Database>,
+    Path(slug): Path<String>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting category: {}", slug);
+    
+    let repository = DuaRepository::new(database);
+    let category = repository.get_category_by_slug(&slug).await?
+        .ok_or_else(|| ApiError::NotFound(format!("Category {} not found", slug)))?;
+    
+    Ok(Json(serde_json::to_value(category)?))
+}
+
+pub async fn get_category_duas(
+    Extension(database): Extension<Database>,
+    Extension(cache): Extension<Cache>,
+    Path(slug): Path<String>,
+    Query(mut params): Query<DuaQueryParams>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting duas for category: {}", slug);
+    
+    // Set the category filter
+    params.category = Some(slug.clone());
+    
+    let repository = DuaRepository::new(database);
+    let service = DuaService::new(repository, cache);
+    
+    let response = service.list_duas_with_filters(params).await?;
     Ok(Json(serde_json::to_value(response)?))
 }
 
-pub async fn get_categories(
+// ============= TAG ENDPOINTS =============
+
+pub async fn list_tags(
     Extension(database): Extension<Database>,
     Extension(cache): Extension<Cache>,
 ) -> ApiResult<Json<serde_json::Value>> {
-    info!("Fetching dua categories");
-
+    info!("Listing tags");
+    
     let repository = DuaRepository::new(database);
     let service = DuaService::new(repository, cache);
+    
+    let tags = service.list_tags().await?;
+    Ok(Json(serde_json::to_value(tags)?))
+}
 
-    let response = service.get_categories().await?;
+pub async fn get_tag_duas(
+    Extension(database): Extension<Database>,
+    Extension(cache): Extension<Cache>,
+    Path(slug): Path<String>,
+    Query(mut params): Query<DuaQueryParams>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting duas for tag: {}", slug);
+    
+    // Set the tag filter
+    params.tag = Some(slug.clone());
+    
+    let repository = DuaRepository::new(database);
+    let service = DuaService::new(repository, cache);
+    
+    let response = service.list_duas_with_filters(params).await?;
     Ok(Json(serde_json::to_value(response)?))
 }
+
+// ============= BUNDLE ENDPOINTS =============
+
+pub async fn list_bundles(
+    Extension(database): Extension<Database>,
+    Extension(cache): Extension<Cache>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Listing bundles");
+    
+    let repository = DuaRepository::new(database);
+    let service = DuaService::new(repository, cache);
+    
+    let bundles = service.list_bundles().await?;
+    Ok(Json(serde_json::to_value(bundles)?))
+}
+
+pub async fn get_bundle(
+    Extension(database): Extension<Database>,
+    Path(slug): Path<String>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting bundle: {}", slug);
+    
+    let repository = DuaRepository::new(database);
+    let bundle = repository.get_bundle_by_slug(&slug).await?
+        .ok_or_else(|| ApiError::NotFound(format!("Bundle {} not found", slug)))?;
+    
+    Ok(Json(serde_json::to_value(bundle)?))
+}
+
+pub async fn get_bundle_items(
+    Extension(database): Extension<Database>,
+    Extension(cache): Extension<Cache>,
+    Path(slug): Path<String>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting items for bundle: {}", slug);
+    
+    let repository = DuaRepository::new(database);
+    let service = DuaService::new(repository, cache);
+    
+    let response = service.get_bundle_items(&slug).await?;
+    Ok(Json(serde_json::to_value(response)?))
+}
+
+// ============= SOURCE ENDPOINTS =============
+
+pub async fn list_sources(
+    Extension(database): Extension<Database>,
+    Query(params): Query<SourceQueryParams>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Listing sources");
+    
+    let repository = DuaRepository::new(database);
+    let sources = repository.list_sources(&params).await?;
+    
+    Ok(Json(serde_json::json!({
+        "sources": sources,
+        "total": sources.len()
+    })))
+}
+
+pub async fn get_source(
+    Extension(database): Extension<Database>,
+    Path(id): Path<Uuid>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting source: {}", id);
+    
+    let repository = DuaRepository::new(database);
+    let source = repository.get_source_by_id(id).await?
+        .ok_or_else(|| ApiError::NotFound(format!("Source {} not found", id)))?;
+    
+    Ok(Json(serde_json::to_value(source)?))
+}
+
+pub async fn get_source_duas(
+    Extension(database): Extension<Database>,
+    Path(id): Path<Uuid>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting duas for source: {}", id);
+    
+    let repository = DuaRepository::new(database);
+    let duas = repository.get_duas_by_source(id).await?;
+    
+    Ok(Json(serde_json::json!({
+        "source_id": id,
+        "duas": duas,
+        "total": duas.len()
+    })))
+}
+
+// ============= MEDIA ENDPOINTS =============
+
+pub async fn get_dua_media(
+    Extension(database): Extension<Database>,
+    Path(id): Path<Uuid>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Getting media for dua: {}", id);
+    
+    let repository = DuaRepository::new(database);
+    let media = repository.get_dua_media(id).await?;
+    
+    Ok(Json(serde_json::json!({
+        "dua_id": id,
+        "media": media,
+        "total": media.len()
+    })))
+}
+
+pub async fn search_media(
+    Extension(database): Extension<Database>,
+    Query(params): Query<MediaQueryParams>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Searching media");
+    
+    let repository = DuaRepository::new(database);
+    let media = repository.search_media(&params).await?;
+    
+    Ok(Json(serde_json::json!({
+        "media": media,
+        "total": media.len()
+    })))
+}
+
+// ============= SEARCH ENDPOINTS =============
+
+pub async fn keyword_search(
+    Extension(database): Extension<Database>,
+    Extension(cache): Extension<Cache>,
+    Query(params): Query<HashMap<String, String>>,
+) -> ApiResult<Json<serde_json::Value>> {
+    let query = params.get("q").cloned().unwrap_or_default();
+    let limit = params.get("limit")
+        .and_then(|l| l.parse::<u32>().ok())
+        .unwrap_or(20);
+    
+    info!("Keyword search for: {}", query);
+    
+    let repository = DuaRepository::new(database);
+    let service = DuaService::new(repository, cache);
+    
+    let results = service.keyword_search(&query, limit).await?;
+    
+    Ok(Json(serde_json::json!({
+        "query": query,
+        "results": results,
+        "total": results.len()
+    })))
+}
+
+pub async fn semantic_search(
+    Extension(database): Extension<Database>,
+    Extension(cache): Extension<Cache>,
+    Json(request): Json<SemanticSearchRequest>,
+) -> ApiResult<Json<serde_json::Value>> {
+    info!("Semantic search for: {}", request.query);
+    
+    request.validate()
+        .map_err(|e| ApiError::Validation(format!("Validation failed: {}", e)))?;
+    
+    let repository = DuaRepository::new(database);
+    let service = DuaService::new(repository, cache);
+    
+    let results = service.semantic_search(request).await?;
+    Ok(Json(serde_json::to_value(results)?))
+}
+
+pub async fn autocomplete(
+    Extension(database): Extension<Database>,
+    Query(params): Query<HashMap<String, String>>,
+) -> ApiResult<Json<serde_json::Value>> {
+    let query = params.get("q").cloned().unwrap_or_default();
+    let limit = params.get("limit")
+        .and_then(|l| l.parse::<u32>().ok())
+        .unwrap_or(10);
+    
+    info!("Autocomplete for: {}", query);
+    
+    let repository = DuaRepository::new(database);
+    let suggestions = repository.get_suggestions(&query, limit).await?;
+    
+    Ok(Json(serde_json::json!({
+        "query": query,
+        "suggestions": suggestions
+    })))
+}
+
+// ============= STATS ENDPOINT =============
 
 pub async fn get_stats(
     Extension(database): Extension<Database>,
     Extension(cache): Extension<Cache>,
 ) -> ApiResult<Json<serde_json::Value>> {
-    info!("Fetching dua statistics");
-
+    info!("Fetching statistics");
+    
     let repository = DuaRepository::new(database);
     let service = DuaService::new(repository, cache);
-
-    let response = service.get_stats().await?;
-    Ok(Json(serde_json::to_value(response)?))
+    
+    let stats = service.get_stats().await?;
+    Ok(Json(serde_json::to_value(stats)?))
 }
 
-pub async fn verify_dua(
-    Extension(database): Extension<Database>,
-    Extension(cache): Extension<Cache>,
-    Path(id): Path<Uuid>,
-    Json(request): Json<serde_json::Value>,
-) -> ApiResult<Json<serde_json::Value>> {
-    info!("Updating verification status for dua: {}", id);
-
-    let verified = request
-        .get("verified")
-        .and_then(|v| v.as_bool())
-        .ok_or_else(|| {
-            ApiError::InvalidInput("'verified' field is required and must be a boolean".to_string())
-        })?;
-
-    let repository = DuaRepository::new(database);
-    let service = DuaService::new(repository, cache);
-
-    match service.verify_dua(id, verified).await? {
-        Some(response) => Ok(Json(serde_json::to_value(response)?)),
-        None => Err(ApiError::NotFound(format!("Dua with ID {} not found", id))),
-    }
-}
+// ============= HEALTH CHECK =============
 
 pub async fn health_check(
     Extension(database): Extension<Database>,
@@ -180,49 +394,16 @@ pub async fn health_check(
 ) -> ApiResult<Json<serde_json::Value>> {
     // Check database connection
     database.health_check().await?;
-
+    
     // Check cache connection
     cache.health_check().await?;
-
+    
     Ok(Json(serde_json::json!({
         "status": "OK",
+        "service": "dua-api",
+        "version": "1.0.0",
         "database": "connected",
         "cache": "connected",
         "timestamp": chrono::Utc::now().to_rfc3339()
     })))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::models::CreateDuaRequest;
-
-    #[test]
-    fn test_create_dua_request_validation() {
-        let valid_request = CreateDuaRequest {
-            title: "Test Dua".to_string(),
-            arabic_text: "بسم الله".to_string(),
-            transliteration: Some("Bismillah".to_string()),
-            translation: "In the name of Allah".to_string(),
-            reference: Some("Quran 1:1".to_string()),
-            category: "Daily Duas".to_string(),
-            tags: Some(vec!["daily".to_string(), "basic".to_string()]),
-            audio_url: Some("https://example.com/audio.mp3".to_string()),
-        };
-
-        assert!(valid_request.validate().is_ok());
-
-        let invalid_request = CreateDuaRequest {
-            title: "".to_string(), // Empty title
-            arabic_text: "بسم الله".to_string(),
-            transliteration: None,
-            translation: "In the name of Allah".to_string(),
-            reference: None,
-            category: "Daily Duas".to_string(),
-            tags: None,
-            audio_url: None,
-        };
-
-        assert!(invalid_request.validate().is_err());
-    }
 }
