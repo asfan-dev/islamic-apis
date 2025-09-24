@@ -67,7 +67,7 @@ CREATE TABLE duas (
     slug VARCHAR(500) UNIQUE NOT NULL,
     status VARCHAR(20) DEFAULT 'active',
     version INTEGER DEFAULT 1,
-    popularity_score DECIMAL(3,2) DEFAULT 0.50,
+    popularity_score DOUBLE PRECISION DEFAULT 0.50,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );

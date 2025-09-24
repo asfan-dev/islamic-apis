@@ -1,0 +1,1867 @@
+2025-09-24 06:46:23,123 - INFO - ================================================================================
+2025-09-24 06:46:23,124 - INFO - Starting Dua API Test Suite
+2025-09-24 06:46:23,124 - INFO - Base URL: http://localhost:3000
+2025-09-24 06:46:23,124 - INFO - Start Time: 2025-09-24T06:46:23.124184
+2025-09-24 06:46:23,125 - INFO - ================================================================================
+2025-09-24 06:46:23,125 - INFO - 🔍 Discovering test data from API...
+2025-09-24 06:46:23,145 - INFO - Found 5 categories
+2025-09-24 06:46:23,165 - INFO - Found 5 tags
+2025-09-24 06:46:23,172 - INFO - Found 3 bundles
+2025-09-24 06:46:23,229 - INFO - Found 2 sample duas
+2025-09-24 06:46:23,244 - INFO - Found 0 sources
+2025-09-24 06:46:23,245 - INFO - 
+==================== TESTING HEALTH CHECK ====================
+2025-09-24 06:46:23,252 - INFO - [PASS] GET /health
+2025-09-24 06:46:23,252 - INFO - Params: {}
+2025-09-24 06:46:23,253 - INFO - Response Code: 200
+2025-09-24 06:46:23,253 - INFO - Response: {
+  "cache": "connected",
+  "database": "connected",
+  "service": "dua-api",
+  "status": "OK",
+  "timestamp": "2025-09-24T06:46:23.250676939+00:00",
+  "version": "1.0.0"
+}
+2025-09-24 06:46:23,253 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,253 - INFO - ✅ Health Check tests completed
+2025-09-24 06:46:23,754 - INFO - 
+==================== TESTING LIST DUAS ====================
+2025-09-24 06:46:23,767 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,768 - INFO - Params: {}
+2025-09-24 06:46:23,768 - INFO - Response Code: 200
+2025-09-24 06:46:23,768 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,769 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,782 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,782 - INFO - Params: {
+  "page": 1,
+  "per_page": 5
+}
+2025-09-24 06:46:23,783 - INFO - Response Code: 200
+2025-09-24 06:46:23,783 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,784 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,797 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,797 - INFO - Params: {
+  "sort": "title",
+  "order": "asc"
+}
+2025-09-24 06:46:23,798 - INFO - Response Code: 200
+2025-09-24 06:46:23,798 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,799 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,808 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,809 - INFO - Params: {
+  "lang": "en"
+}
+2025-09-24 06:46:23,810 - INFO - Response Code: 200
+2025-09-24 06:46:23,810 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,812 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,834 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,836 - INFO - Params: {
+  "q": "morning"
+}
+2025-09-24 06:46:23,836 - INFO - Response Code: 200
+2025-09-24 06:46:23,836 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 1,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,836 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,854 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,855 - INFO - Params: {
+  "q": "Allah"
+}
+2025-09-24 06:46:23,857 - INFO - Response Code: 200
+2025-09-24 06:46:23,857 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,857 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,868 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,870 - INFO - Params: {
+  "include": "sources,categories,tags"
+}
+2025-09-24 06:46:23,871 - INFO - Response Code: 200
+2025-09-24 06:46:23,872 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,873 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,905 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,907 - INFO - Params: {
+  "category": "daily-life"
+}
+2025-09-24 06:46:23,908 - INFO - Response Code: 200
+2025-09-24 06:46:23,908 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 1,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,909 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,930 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,931 - INFO - Params: {
+  "category": "daily-life",
+  "include": "categories"
+}
+2025-09-24 06:46:23,931 - INFO - Response Code: 200
+2025-09-24 06:46:23,931 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": [
+        {
+          "created_at": "2025-09-23T08:47:57.701369Z",
+          "description": "Duas for everyday activities",
+          "id": "2f4e4afc-3b37-4353-bdb9-89581f474cc3",
+          "name": "Daily Life",
+          "parent_id": null,
+          "slug": "daily-life",
+          "sort_order": 1
+        }
+      ],
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 1,
+  "total_pages": 1
+}
+2025-09-24 06:46:23,932 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,942 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,944 - INFO - Params: {
+  "tag": "daily"
+}
+2025-09-24 06:46:23,944 - INFO - Response Code: 200
+2025-09-24 06:46:23,944 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:23,944 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,956 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,956 - INFO - Params: {
+  "tag": "daily",
+  "include": "tags"
+}
+2025-09-24 06:46:23,956 - INFO - Response Code: 200
+2025-09-24 06:46:23,957 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:23,957 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,972 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,973 - INFO - Params: {
+  "invocation_time": "morning"
+}
+2025-09-24 06:46:23,973 - INFO - Response Code: 200
+2025-09-24 06:46:23,974 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:23,974 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,984 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,984 - INFO - Params: {
+  "invocation_time": "evening"
+}
+2025-09-24 06:46:23,984 - INFO - Response Code: 200
+2025-09-24 06:46:23,985 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:23,985 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:23,994 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:23,995 - INFO - Params: {
+  "event_trigger": "waking_up"
+}
+2025-09-24 06:46:23,995 - INFO - Response Code: 200
+2025-09-24 06:46:23,995 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:23,996 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,008 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:24,009 - INFO - Params: {
+  "source_type": "Quran"
+}
+2025-09-24 06:46:24,009 - INFO - Response Code: 200
+2025-09-24 06:46:24,009 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:24,009 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,021 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:24,021 - INFO - Params: {
+  "source_type": "Hadith"
+}
+2025-09-24 06:46:24,022 - INFO - Response Code: 200
+2025-09-24 06:46:24,022 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:24,022 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,033 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:24,034 - INFO - Params: {
+  "authenticity": "Sahih"
+}
+2025-09-24 06:46:24,034 - INFO - Response Code: 200
+2025-09-24 06:46:24,034 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 20,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:24,035 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,041 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:24,041 - INFO - Params: {
+  "has_audio": "true"
+}
+2025-09-24 06:46:24,042 - INFO - Response Code: 200
+2025-09-24 06:46:24,042 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:24,043 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,050 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:24,051 - INFO - Params: {
+  "has_audio": "false"
+}
+2025-09-24 06:46:24,051 - INFO - Response Code: 200
+2025-09-24 06:46:24,052 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 20,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:24,053 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,061 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:24,062 - INFO - Params: {
+  "page": 2,
+  "per_page": 10,
+  "sort": "popularity_score",
+  "order": "desc",
+  "include": "sources,categories"
+}
+2025-09-24 06:46:24,062 - INFO - Response Code: 200
+2025-09-24 06:46:24,062 - INFO - Response: {
+  "duas": [],
+  "page": 2,
+  "per_page": 10,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:24,063 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,063 - INFO - ✅ List Duas tests completed
+2025-09-24 06:46:24,563 - INFO - 
+==================== TESTING RANDOM DUA ====================
+2025-09-24 06:46:24,583 - INFO - [PASS] GET /v1/duas/random
+2025-09-24 06:46:24,585 - INFO - Params: {}
+2025-09-24 06:46:24,586 - INFO - Response Code: 200
+2025-09-24 06:46:24,587 - INFO - Response: {
+  "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+  "categories": null,
+  "context": null,
+  "created_at": "2025-09-23T08:47:57.705079Z",
+  "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "media": null,
+  "popularity_score": 1.0,
+  "slug": "bismillah",
+  "sources": null,
+  "status": "active",
+  "tags": null,
+  "title": "Bismillah",
+  "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+  "translations": null,
+  "transliteration": "Bismillahir Rahmanir Raheem",
+  "updated_at": "2025-09-23T08:47:57.705079Z",
+  "variants": null,
+  "version": 1
+}
+2025-09-24 06:46:24,587 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,619 - INFO - [PASS] GET /v1/duas/random
+2025-09-24 06:46:24,621 - INFO - Params: {
+  "include": "sources,categories,tags"
+}
+2025-09-24 06:46:24,622 - INFO - Response Code: 200
+2025-09-24 06:46:24,622 - INFO - Response: {
+  "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+  "categories": [
+    {
+      "created_at": "2025-09-23T08:47:57.701369Z",
+      "description": "Morning and evening remembrances",
+      "id": "33de381a-e00b-41fb-8738-73447d69dcaf",
+      "name": "Morning & Evening",
+      "parent_id": null,
+      "slug": "morning-evening",
+      "sort_order": 3
+    }
+  ],
+  "context": null,
+  "created_at": "2025-09-23T08:47:57.705079Z",
+  "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+  "media": null,
+  "popularity_score": 0.9,
+  "slug": "morning-awakening",
+  "sources": [],
+  "status": "active",
+  "tags": [],
+  "title": "Morning Awakening Dua",
+  "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+  "translations": null,
+  "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+  "updated_at": "2025-09-23T08:47:57.705079Z",
+  "variants": null,
+  "version": 1
+}
+2025-09-24 06:46:24,623 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,635 - INFO - [PASS] GET /v1/duas/random
+2025-09-24 06:46:24,635 - INFO - Params: {
+  "category": "daily-life"
+}
+2025-09-24 06:46:24,636 - INFO - Response Code: 200
+2025-09-24 06:46:24,636 - INFO - Response: {
+  "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+  "categories": null,
+  "context": null,
+  "created_at": "2025-09-23T08:47:57.705079Z",
+  "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "media": null,
+  "popularity_score": 1.0,
+  "slug": "bismillah",
+  "sources": null,
+  "status": "active",
+  "tags": null,
+  "title": "Bismillah",
+  "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+  "translations": null,
+  "transliteration": "Bismillahir Rahmanir Raheem",
+  "updated_at": "2025-09-23T08:47:57.705079Z",
+  "variants": null,
+  "version": 1
+}
+2025-09-24 06:46:24,636 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,650 - INFO - [PASS] GET /v1/duas/random
+2025-09-24 06:46:24,652 - INFO - Params: {
+  "invocation_time": "morning"
+}
+2025-09-24 06:46:24,652 - INFO - Response Code: 404
+2025-09-24 06:46:24,653 - INFO - Response: {
+  "error": "No duas found matching criteria",
+  "status": 404
+}
+2025-09-24 06:46:24,654 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,663 - INFO - [PASS] GET /v1/duas/random
+2025-09-24 06:46:24,665 - INFO - Params: {
+  "invocation_time": "evening"
+}
+2025-09-24 06:46:24,665 - INFO - Response Code: 404
+2025-09-24 06:46:24,666 - INFO - Response: {
+  "error": "No duas found matching criteria",
+  "status": 404
+}
+2025-09-24 06:46:24,666 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,674 - INFO - [PASS] GET /v1/duas/random
+2025-09-24 06:46:24,676 - INFO - Params: {
+  "event_trigger": "waking_up"
+}
+2025-09-24 06:46:24,677 - INFO - Response Code: 404
+2025-09-24 06:46:24,677 - INFO - Response: {
+  "error": "No duas found matching criteria",
+  "status": 404
+}
+2025-09-24 06:46:24,677 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:24,677 - INFO - ✅ Random Dua tests completed
+2025-09-24 06:46:25,178 - INFO - 
+==================== TESTING GET DUA BY ID/SLUG ====================
+2025-09-24 06:46:25,187 - INFO - [PASS] GET /v1/duas/043959cf-ad0b-441b-b3d8-c59ba0e2d5e7
+2025-09-24 06:46:25,187 - INFO - Params: {}
+2025-09-24 06:46:25,188 - INFO - Response Code: 200
+2025-09-24 06:46:25,188 - INFO - Response: {
+  "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+  "categories": null,
+  "context": null,
+  "created_at": "2025-09-23T08:47:57.705079Z",
+  "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "media": null,
+  "popularity_score": 1.0,
+  "slug": "bismillah",
+  "sources": null,
+  "status": "active",
+  "tags": null,
+  "title": "Bismillah",
+  "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+  "translations": null,
+  "transliteration": "Bismillahir Rahmanir Raheem",
+  "updated_at": "2025-09-23T08:47:57.705079Z",
+  "variants": null,
+  "version": 1
+}
+2025-09-24 06:46:25,188 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:25,205 - INFO - [PASS] GET /v1/duas/043959cf-ad0b-441b-b3d8-c59ba0e2d5e7
+2025-09-24 06:46:25,205 - INFO - Params: {
+  "include": "sources,categories,tags"
+}
+2025-09-24 06:46:25,206 - INFO - Response Code: 200
+2025-09-24 06:46:25,206 - INFO - Response: {
+  "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+  "categories": [
+    {
+      "created_at": "2025-09-23T08:47:57.701369Z",
+      "description": "Duas for everyday activities",
+      "id": "2f4e4afc-3b37-4353-bdb9-89581f474cc3",
+      "name": "Daily Life",
+      "parent_id": null,
+      "slug": "daily-life",
+      "sort_order": 1
+    }
+  ],
+  "context": null,
+  "created_at": "2025-09-23T08:47:57.705079Z",
+  "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "media": null,
+  "popularity_score": 1.0,
+  "slug": "bismillah",
+  "sources": [],
+  "status": "active",
+  "tags": [],
+  "title": "Bismillah",
+  "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+  "translations": null,
+  "transliteration": "Bismillahir Rahmanir Raheem",
+  "updated_at": "2025-09-23T08:47:57.705079Z",
+  "variants": null,
+  "version": 1
+}
+2025-09-24 06:46:25,206 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:25,214 - INFO - [PASS] GET /v1/duas/bismillah
+2025-09-24 06:46:25,214 - INFO - Params: {}
+2025-09-24 06:46:25,214 - INFO - Response Code: 200
+2025-09-24 06:46:25,215 - INFO - Response: {
+  "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+  "categories": null,
+  "context": null,
+  "created_at": "2025-09-23T08:47:57.705079Z",
+  "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "media": null,
+  "popularity_score": 1.0,
+  "slug": "bismillah",
+  "sources": null,
+  "status": "active",
+  "tags": null,
+  "title": "Bismillah",
+  "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+  "translations": null,
+  "transliteration": "Bismillahir Rahmanir Raheem",
+  "updated_at": "2025-09-23T08:47:57.705079Z",
+  "variants": null,
+  "version": 1
+}
+2025-09-24 06:46:25,215 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:25,230 - INFO - [PASS] GET /v1/duas/bismillah
+2025-09-24 06:46:25,231 - INFO - Params: {
+  "include": "sources,media"
+}
+2025-09-24 06:46:25,232 - INFO - Response Code: 200
+2025-09-24 06:46:25,232 - INFO - Response: {
+  "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+  "categories": null,
+  "context": null,
+  "created_at": "2025-09-23T08:47:57.705079Z",
+  "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "media": [],
+  "popularity_score": 1.0,
+  "slug": "bismillah",
+  "sources": [],
+  "status": "active",
+  "tags": null,
+  "title": "Bismillah",
+  "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+  "translations": null,
+  "transliteration": "Bismillahir Rahmanir Raheem",
+  "updated_at": "2025-09-23T08:47:57.705079Z",
+  "variants": null,
+  "version": 1
+}
+2025-09-24 06:46:25,232 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:25,232 - INFO - ✅ Get Dua by ID/Slug tests completed
+2025-09-24 06:46:25,733 - INFO - 
+==================== TESTING TRANSLATIONS ====================
+2025-09-24 06:46:25,743 - INFO - [PASS] GET /v1/duas/043959cf-ad0b-441b-b3d8-c59ba0e2d5e7/translations
+2025-09-24 06:46:25,745 - INFO - Params: {}
+2025-09-24 06:46:25,745 - INFO - Response Code: 200
+2025-09-24 06:46:25,745 - INFO - Response: {
+  "dua_id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "total": 0,
+  "translations": []
+}
+2025-09-24 06:46:25,746 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:25,753 - INFO - [PASS] GET /v1/translations
+2025-09-24 06:46:25,755 - INFO - Params: {}
+2025-09-24 06:46:25,756 - INFO - Response Code: 200
+2025-09-24 06:46:25,756 - INFO - Response: {
+  "total": 0,
+  "translations": []
+}
+2025-09-24 06:46:25,756 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:25,756 - INFO - ✅ Translations tests completed
+2025-09-24 06:46:26,257 - INFO - 
+==================== TESTING CATEGORIES ====================
+2025-09-24 06:46:26,262 - INFO - [PASS] GET /v1/categories
+2025-09-24 06:46:26,264 - INFO - Params: {}
+2025-09-24 06:46:26,264 - INFO - Response Code: 200
+2025-09-24 06:46:26,264 - INFO - Response: {
+  "categories": [
+    {
+      "created_at": "2025-09-23T08:47:57.701369Z",
+      "description": "Duas for everyday activities",
+      "id": "2f4e4afc-3b37-4353-bdb9-89581f474cc3",
+      "name": "Daily Life",
+      "parent_id": null,
+      "slug": "daily-life",
+      "sort_order": 1
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.701369Z",
+      "description": "Prayer-related supplications",
+      "id": "69b98461-1234-49ff-bb28-2d829737c168",
+      "name": "Salah & Adhkar",
+      "parent_id": null,
+      "slug": "salah-adhkar",
+      "sort_order": 2
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.701369Z",
+      "description": "Morning and evening remembrances",
+      "id": "33de381a-e00b-41fb-8738-73447d69dcaf",
+      "name": "Morning & Evening",
+      "parent_id": null,
+      "slug": "morning-evening",
+      "sort_order": 3
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.701369Z",
+      "description": "Duas for protection and safety",
+      "id": "b017a8af-81d6-4f09-a0df-6465b0abfcd8",
+      "name": "Protection",
+      "parent_id": null,
+      "slug": "protection",
+      "sort_order": 4
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.701369Z",
+      "description": "Seeking forgiveness",
+      "id": "a4670622-c923-46d3-860f-c965411a4986",
+      "name": "Forgiveness",
+      "parent_id": null,
+      "slug": "forgiveness",
+      "sort_order": 5
+    }
+  ],
+  "total": 5
+}
+2025-09-24 06:46:26,265 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:26,272 - INFO - [PASS] GET /v1/categories/daily-life
+2025-09-24 06:46:26,274 - INFO - Params: {}
+2025-09-24 06:46:26,274 - INFO - Response Code: 200
+2025-09-24 06:46:26,274 - INFO - Response: {
+  "created_at": "2025-09-23T08:47:57.701369Z",
+  "description": "Duas for everyday activities",
+  "id": "2f4e4afc-3b37-4353-bdb9-89581f474cc3",
+  "name": "Daily Life",
+  "parent_id": null,
+  "slug": "daily-life",
+  "sort_order": 1
+}
+2025-09-24 06:46:26,275 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:26,286 - INFO - [PASS] GET /v1/categories/daily-life/duas
+2025-09-24 06:46:26,287 - INFO - Params: {
+  "page": 1,
+  "per_page": 5
+}
+2025-09-24 06:46:26,288 - INFO - Response Code: 200
+2025-09-24 06:46:26,288 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1
+}
+2025-09-24 06:46:26,288 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:26,289 - INFO - ✅ Categories tests completed
+2025-09-24 06:46:26,789 - INFO - 
+==================== TESTING TAGS ====================
+2025-09-24 06:46:26,794 - INFO - [PASS] GET /v1/tags
+2025-09-24 06:46:26,794 - INFO - Params: {}
+2025-09-24 06:46:26,794 - INFO - Response Code: 200
+2025-09-24 06:46:26,795 - INFO - Response: {
+  "tags": [
+    {
+      "created_at": "2025-09-23T08:47:57.702634Z",
+      "id": "770b05ee-7fb3-41c8-a30f-e5c15cbe6c09",
+      "name": "Daily",
+      "slug": "daily"
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.702634Z",
+      "id": "0010a45b-c214-47f4-b9fa-2ce6a8c99f8b",
+      "name": "Essential",
+      "slug": "essential"
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.702634Z",
+      "id": "e5760d63-ae01-4884-818c-7bd689371c8b",
+      "name": "Protection",
+      "slug": "protection"
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.702634Z",
+      "id": "9965cf9a-b3af-4f34-8259-7382c6d65a75",
+      "name": "Quranic",
+      "slug": "quranic"
+    },
+    {
+      "created_at": "2025-09-23T08:47:57.702634Z",
+      "id": "5e881e9c-a72b-4823-9805-e34affecc925",
+      "name": "Sunnah",
+      "slug": "sunnah"
+    }
+  ],
+  "total": 5
+}
+2025-09-24 06:46:26,795 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:26,806 - INFO - [PASS] GET /v1/tags/daily/duas
+2025-09-24 06:46:26,807 - INFO - Params: {
+  "page": 1,
+  "per_page": 5
+}
+2025-09-24 06:46:26,807 - INFO - Response Code: 200
+2025-09-24 06:46:26,807 - INFO - Response: {
+  "duas": [],
+  "page": 1,
+  "per_page": 5,
+  "total": 0,
+  "total_pages": 0
+}
+2025-09-24 06:46:26,808 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:26,808 - INFO - ✅ Tags tests completed
+2025-09-24 06:46:27,308 - INFO - 
+==================== TESTING BUNDLES ====================
+2025-09-24 06:46:27,313 - INFO - [PASS] GET /v1/bundles
+2025-09-24 06:46:27,313 - INFO - Params: {}
+2025-09-24 06:46:27,313 - INFO - Response Code: 200
+2025-09-24 06:46:27,313 - INFO - Response: {
+  "bundles": [
+    {
+      "bundle_type": "adhkar",
+      "created_at": "2025-09-23T08:47:57.703748Z",
+      "description": "Duas to recite after prayer",
+      "id": "eb225ec0-5b02-4e54-99f5-e8e2a66e2fa0",
+      "is_ruqyah": false,
+      "metadata": null,
+      "name": "After Salah",
+      "slug": "after-salah",
+      "updated_at": "2025-09-23T08:47:57.703748Z"
+    },
+    {
+      "bundle_type": "adhkar",
+      "created_at": "2025-09-23T08:47:57.703748Z",
+      "description": "Complete evening remembrance routine",
+      "id": "963b81a0-49e1-4eaf-ab57-5aed1f97531b",
+      "is_ruqyah": false,
+      "metadata": null,
+      "name": "Evening Adhkar",
+      "slug": "evening-adhkar",
+      "updated_at": "2025-09-23T08:47:57.703748Z"
+    },
+    {
+      "bundle_type": "adhkar",
+      "created_at": "2025-09-23T08:47:57.703748Z",
+      "description": "Complete morning remembrance routine",
+      "id": "245ce740-8cef-45b7-aa10-2ae736999460",
+      "is_ruqyah": false,
+      "metadata": null,
+      "name": "Morning Adhkar",
+      "slug": "morning-adhkar",
+      "updated_at": "2025-09-23T08:47:57.703748Z"
+    }
+  ],
+  "total": 3
+}
+2025-09-24 06:46:27,314 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,323 - INFO - [PASS] GET /v1/bundles/after-salah
+2025-09-24 06:46:27,324 - INFO - Params: {}
+2025-09-24 06:46:27,325 - INFO - Response Code: 200
+2025-09-24 06:46:27,325 - INFO - Response: {
+  "bundle_type": "adhkar",
+  "created_at": "2025-09-23T08:47:57.703748Z",
+  "description": "Duas to recite after prayer",
+  "id": "eb225ec0-5b02-4e54-99f5-e8e2a66e2fa0",
+  "is_ruqyah": false,
+  "metadata": null,
+  "name": "After Salah",
+  "slug": "after-salah",
+  "updated_at": "2025-09-23T08:47:57.703748Z"
+}
+2025-09-24 06:46:27,325 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,339 - INFO - [PASS] GET /v1/bundles/after-salah/items
+2025-09-24 06:46:27,341 - INFO - Params: {}
+2025-09-24 06:46:27,341 - INFO - Response Code: 200
+2025-09-24 06:46:27,341 - INFO - Response: {
+  "bundle": {
+    "bundle_type": "adhkar",
+    "created_at": "2025-09-23T08:47:57.703748Z",
+    "description": "Duas to recite after prayer",
+    "id": "eb225ec0-5b02-4e54-99f5-e8e2a66e2fa0",
+    "is_ruqyah": false,
+    "metadata": null,
+    "name": "After Salah",
+    "slug": "after-salah",
+    "updated_at": "2025-09-23T08:47:57.703748Z"
+  },
+  "items": [],
+  "total": 0
+}
+2025-09-24 06:46:27,341 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,342 - INFO - ✅ Bundles tests completed
+2025-09-24 06:46:27,842 - INFO - 
+==================== TESTING SOURCES ====================
+2025-09-24 06:46:27,853 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,854 - INFO - Params: {}
+2025-09-24 06:46:27,854 - INFO - Response Code: 200
+2025-09-24 06:46:27,854 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,855 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,865 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,866 - INFO - Params: {
+  "source_type": "Quran"
+}
+2025-09-24 06:46:27,867 - INFO - Response Code: 200
+2025-09-24 06:46:27,867 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,867 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,874 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,875 - INFO - Params: {
+  "source_type": "Hadith"
+}
+2025-09-24 06:46:27,875 - INFO - Response Code: 200
+2025-09-24 06:46:27,876 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,876 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,882 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,884 - INFO - Params: {
+  "authenticity": "Sahih"
+}
+2025-09-24 06:46:27,884 - INFO - Response Code: 200
+2025-09-24 06:46:27,884 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,884 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,890 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,892 - INFO - Params: {
+  "authenticity": "Quranic"
+}
+2025-09-24 06:46:27,892 - INFO - Response Code: 200
+2025-09-24 06:46:27,893 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,893 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,899 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,901 - INFO - Params: {
+  "q": "Bukhari"
+}
+2025-09-24 06:46:27,901 - INFO - Response Code: 200
+2025-09-24 06:46:27,901 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,902 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,908 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,909 - INFO - Params: {
+  "q": "Quran"
+}
+2025-09-24 06:46:27,909 - INFO - Response Code: 200
+2025-09-24 06:46:27,910 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,910 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,915 - INFO - [PASS] GET /v1/sources
+2025-09-24 06:46:27,917 - INFO - Params: {
+  "page": 1,
+  "per_page": 10
+}
+2025-09-24 06:46:27,917 - INFO - Response Code: 200
+2025-09-24 06:46:27,917 - INFO - Response: {
+  "sources": [],
+  "total": 0
+}
+2025-09-24 06:46:27,917 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,924 - INFO - [PASS] GET /v1/sources/0b70a67d-d7a3-4ad1-9db8-06cf73652b6d
+2025-09-24 06:46:27,926 - INFO - Params: {}
+2025-09-24 06:46:27,926 - INFO - Response Code: 404
+2025-09-24 06:46:27,927 - INFO - Response: {
+  "error": "Source 0b70a67d-d7a3-4ad1-9db8-06cf73652b6d not found",
+  "status": 404
+}
+2025-09-24 06:46:27,927 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,934 - INFO - [PASS] GET /v1/sources/0b70a67d-d7a3-4ad1-9db8-06cf73652b6d/duas
+2025-09-24 06:46:27,936 - INFO - Params: {}
+2025-09-24 06:46:27,936 - INFO - Response Code: 200
+2025-09-24 06:46:27,937 - INFO - Response: {
+  "duas": [],
+  "source_id": "0b70a67d-d7a3-4ad1-9db8-06cf73652b6d",
+  "total": 0
+}
+2025-09-24 06:46:27,937 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:27,937 - INFO - ✅ Sources tests completed
+2025-09-24 06:46:28,437 - INFO - 
+==================== TESTING MEDIA ====================
+2025-09-24 06:46:28,448 - INFO - [PASS] GET /v1/duas/043959cf-ad0b-441b-b3d8-c59ba0e2d5e7/media
+2025-09-24 06:46:28,450 - INFO - Params: {}
+2025-09-24 06:46:28,450 - INFO - Response Code: 200
+2025-09-24 06:46:28,451 - INFO - Response: {
+  "dua_id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,451 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,462 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,463 - INFO - Params: {}
+2025-09-24 06:46:28,463 - INFO - Response Code: 200
+2025-09-24 06:46:28,464 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,464 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,476 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,477 - INFO - Params: {
+  "media_type": "audio"
+}
+2025-09-24 06:46:28,477 - INFO - Response Code: 200
+2025-09-24 06:46:28,477 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,478 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,502 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,504 - INFO - Params: {
+  "media_type": "video"
+}
+2025-09-24 06:46:28,505 - INFO - Response Code: 200
+2025-09-24 06:46:28,505 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,506 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,525 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,528 - INFO - Params: {
+  "license": "CC0"
+}
+2025-09-24 06:46:28,529 - INFO - Response Code: 200
+2025-09-24 06:46:28,530 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,532 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,558 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,564 - INFO - Params: {
+  "license": "CC-BY"
+}
+2025-09-24 06:46:28,564 - INFO - Response Code: 200
+2025-09-24 06:46:28,565 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,565 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,592 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,596 - INFO - Params: {
+  "reciter": "Abdul Rahman"
+}
+2025-09-24 06:46:28,599 - INFO - Response Code: 200
+2025-09-24 06:46:28,600 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,604 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,628 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,630 - INFO - Params: {
+  "reciter": "Sheikh"
+}
+2025-09-24 06:46:28,630 - INFO - Response Code: 200
+2025-09-24 06:46:28,630 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,630 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,637 - INFO - [PASS] GET /v1/media
+2025-09-24 06:46:28,638 - INFO - Params: {
+  "page": 1,
+  "per_page": 5
+}
+2025-09-24 06:46:28,638 - INFO - Response Code: 200
+2025-09-24 06:46:28,639 - INFO - Response: {
+  "media": [],
+  "total": 0
+}
+2025-09-24 06:46:28,639 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:28,639 - INFO - ✅ Media tests completed
+2025-09-24 06:46:29,140 - INFO - 
+==================== TESTING SEARCH ====================
+2025-09-24 06:46:29,174 - INFO - [PASS] GET /v1/search
+2025-09-24 06:46:29,176 - INFO - Params: {
+  "q": "morning"
+}
+2025-09-24 06:46:29,176 - INFO - Response Code: 200
+2025-09-24 06:46:29,176 - INFO - Response: {
+  "query": "morning",
+  "results": [
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "total": 1
+}
+2025-09-24 06:46:29,177 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,188 - INFO - [PASS] GET /v1/search
+2025-09-24 06:46:29,190 - INFO - Params: {
+  "q": "Allah"
+}
+2025-09-24 06:46:29,190 - INFO - Response Code: 200
+2025-09-24 06:46:29,191 - INFO - Response: {
+  "query": "Allah",
+  "results": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "total": 2
+}
+2025-09-24 06:46:29,192 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,202 - INFO - [PASS] GET /v1/search
+2025-09-24 06:46:29,204 - INFO - Params: {
+  "q": "protection"
+}
+2025-09-24 06:46:29,205 - INFO - Response Code: 200
+2025-09-24 06:46:29,205 - INFO - Response: {
+  "query": "protection",
+  "results": [],
+  "total": 0
+}
+2025-09-24 06:46:29,207 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,219 - INFO - [PASS] GET /v1/search
+2025-09-24 06:46:29,221 - INFO - Params: {
+  "q": "Bismillah"
+}
+2025-09-24 06:46:29,221 - INFO - Response Code: 200
+2025-09-24 06:46:29,222 - INFO - Response: {
+  "query": "Bismillah",
+  "results": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "total": 1
+}
+2025-09-24 06:46:29,223 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,234 - INFO - [PASS] GET /v1/search
+2025-09-24 06:46:29,235 - INFO - Params: {
+  "q": "dua"
+}
+2025-09-24 06:46:29,235 - INFO - Response Code: 200
+2025-09-24 06:46:29,235 - INFO - Response: {
+  "query": "dua",
+  "results": [
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "total": 1
+}
+2025-09-24 06:46:29,236 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,242 - INFO - [PASS] GET /v1/search
+2025-09-24 06:46:29,242 - INFO - Params: {
+  "q": "protection",
+  "limit": 5
+}
+2025-09-24 06:46:29,243 - INFO - Response Code: 200
+2025-09-24 06:46:29,243 - INFO - Response: {
+  "query": "protection",
+  "results": [],
+  "total": 0
+}
+2025-09-24 06:46:29,244 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,253 - INFO - [PASS] GET /v1/search
+2025-09-24 06:46:29,255 - INFO - Params: {
+  "q": ""
+}
+2025-09-24 06:46:29,255 - INFO - Response Code: 200
+2025-09-24 06:46:29,255 - INFO - Response: {
+  "query": "",
+  "results": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "total": 2
+}
+2025-09-24 06:46:29,256 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,262 - INFO - [PASS] POST /v1/search/semantic
+2025-09-24 06:46:29,263 - INFO - Params: {
+  "query": "morning prayers",
+  "limit": 10
+}
+2025-09-24 06:46:29,264 - INFO - Response Code: 200
+2025-09-24 06:46:29,264 - INFO - Response: {
+  "query": "morning prayers",
+  "results": [],
+  "total": 0
+}
+2025-09-24 06:46:29,264 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,272 - INFO - [PASS] POST /v1/search/semantic
+2025-09-24 06:46:29,273 - INFO - Params: {
+  "query": "protection from evil",
+  "limit": 5,
+  "threshold": 0.7
+}
+2025-09-24 06:46:29,273 - INFO - Response Code: 200
+2025-09-24 06:46:29,273 - INFO - Response: {
+  "query": "protection from evil",
+  "results": [],
+  "total": 0
+}
+2025-09-24 06:46:29,274 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,280 - INFO - [PASS] POST /v1/search/semantic
+2025-09-24 06:46:29,281 - INFO - Params: {
+  "query": "seeking forgiveness"
+}
+2025-09-24 06:46:29,282 - INFO - Response Code: 200
+2025-09-24 06:46:29,282 - INFO - Response: {
+  "query": "seeking forgiveness",
+  "results": [],
+  "total": 0
+}
+2025-09-24 06:46:29,282 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,288 - INFO - [PASS] POST /v1/search/semantic
+2025-09-24 06:46:29,289 - INFO - Params: {
+  "query": "daily supplications"
+}
+2025-09-24 06:46:29,290 - INFO - Response Code: 200
+2025-09-24 06:46:29,290 - INFO - Response: {
+  "query": "daily supplications",
+  "results": [],
+  "total": 0
+}
+2025-09-24 06:46:29,290 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,295 - INFO - [PASS] POST /v1/search/semantic
+2025-09-24 06:46:29,297 - INFO - Params: {
+  "query": "Islamic prayers"
+}
+2025-09-24 06:46:29,297 - INFO - Response Code: 200
+2025-09-24 06:46:29,297 - INFO - Response: {
+  "query": "Islamic prayers",
+  "results": [],
+  "total": 0
+}
+2025-09-24 06:46:29,298 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,308 - INFO - [PASS] GET /v1/suggest
+2025-09-24 06:46:29,310 - INFO - Params: {
+  "q": "mor"
+}
+2025-09-24 06:46:29,310 - INFO - Response Code: 200
+2025-09-24 06:46:29,310 - INFO - Response: {
+  "query": "mor",
+  "suggestions": [
+    "Morning & Evening",
+    "Morning Awakening Dua"
+  ]
+}
+2025-09-24 06:46:29,310 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,318 - INFO - [PASS] GET /v1/suggest
+2025-09-24 06:46:29,318 - INFO - Params: {
+  "q": "prot"
+}
+2025-09-24 06:46:29,318 - INFO - Response Code: 200
+2025-09-24 06:46:29,319 - INFO - Response: {
+  "query": "prot",
+  "suggestions": [
+    "Protection"
+  ]
+}
+2025-09-24 06:46:29,319 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,327 - INFO - [PASS] GET /v1/suggest
+2025-09-24 06:46:29,328 - INFO - Params: {
+  "q": "Al"
+}
+2025-09-24 06:46:29,328 - INFO - Response Code: 200
+2025-09-24 06:46:29,328 - INFO - Response: {
+  "query": "Al",
+  "suggestions": []
+}
+2025-09-24 06:46:29,328 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,335 - INFO - [PASS] GET /v1/suggest
+2025-09-24 06:46:29,336 - INFO - Params: {
+  "q": "bis"
+}
+2025-09-24 06:46:29,336 - INFO - Response Code: 200
+2025-09-24 06:46:29,337 - INFO - Response: {
+  "query": "bis",
+  "suggestions": [
+    "Bismillah"
+  ]
+}
+2025-09-24 06:46:29,337 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,343 - INFO - [PASS] GET /v1/suggest
+2025-09-24 06:46:29,344 - INFO - Params: {
+  "q": "prot",
+  "limit": 5
+}
+2025-09-24 06:46:29,344 - INFO - Response Code: 200
+2025-09-24 06:46:29,345 - INFO - Response: {
+  "query": "prot",
+  "suggestions": [
+    "Protection"
+  ]
+}
+2025-09-24 06:46:29,345 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,345 - INFO - ✅ Search tests completed
+2025-09-24 06:46:29,845 - INFO - 
+==================== TESTING STATISTICS ====================
+2025-09-24 06:46:29,863 - INFO - [PASS] GET /v1/stats
+2025-09-24 06:46:29,863 - INFO - Params: {}
+2025-09-24 06:46:29,864 - INFO - Response Code: 200
+2025-09-24 06:46:29,864 - INFO - Response: {
+  "most_popular_category": "Morning & Evening",
+  "recent_additions": 2,
+  "total_bundles": 3,
+  "total_categories": 5,
+  "total_duas": 2,
+  "total_tags": 5,
+  "verified_duas": 0
+}
+2025-09-24 06:46:29,864 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:29,864 - INFO - ✅ Statistics tests completed
+2025-09-24 06:46:30,365 - INFO - 
+==================== TESTING ERROR CASES ====================
+2025-09-24 06:46:30,368 - INFO - [PASS] GET /v1/invalid
+2025-09-24 06:46:30,369 - INFO - Params: {}
+2025-09-24 06:46:30,369 - INFO - Response Code: 404
+2025-09-24 06:46:30,369 - INFO - Response: {}
+2025-09-24 06:46:30,369 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:30,373 - INFO - [PASS] GET /v1/nonexistent
+2025-09-24 06:46:30,374 - INFO - Params: {}
+2025-09-24 06:46:30,374 - INFO - Response Code: 404
+2025-09-24 06:46:30,374 - INFO - Response: {}
+2025-09-24 06:46:30,375 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:30,380 - INFO - [PASS] POST /v1/duas
+2025-09-24 06:46:30,380 - INFO - Params: {}
+2025-09-24 06:46:30,380 - INFO - Response Code: 405
+2025-09-24 06:46:30,380 - INFO - Response: {}
+2025-09-24 06:46:30,381 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:30,381 - INFO - [PASS] PUT /v1/stats
+2025-09-24 06:46:30,381 - INFO - Params: {}
+2025-09-24 06:46:30,381 - INFO - Response Code: 0
+2025-09-24 06:46:30,381 - ERROR - Error: Unsupported method: PUT
+2025-09-24 06:46:30,382 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:30,388 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:30,388 - INFO - Params: {
+  "page": -1
+}
+2025-09-24 06:46:30,389 - INFO - Response Code: 400
+2025-09-24 06:46:30,389 - INFO - Response: {
+  "raw_response": "Failed to deserialize query string: invalid digit found in string"
+}
+2025-09-24 06:46:30,389 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:30,401 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:30,402 - INFO - Params: {
+  "per_page": 1000
+}
+2025-09-24 06:46:30,402 - INFO - Response Code: 200
+2025-09-24 06:46:30,403 - INFO - Response: {
+  "duas": [
+    {
+      "arabic_text": "\u0628\u0650\u0633\u0652\u0645\u0650 \u0627\u0644\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0652\u0645\u064e\u0670\u0646\u0650 \u0627\u0644\u0631\u064e\u0651\u062d\u0650\u064a\u0645\u0650",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "043959cf-ad0b-441b-b3d8-c59ba0e2d5e7",
+      "media": null,
+      "popularity_score": 1.0,
+      "slug": "bismillah",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Bismillah",
+      "translation": "In the name of Allah, the Most Gracious, the Most Merciful",
+      "translations": null,
+      "transliteration": "Bismillahir Rahmanir Raheem",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    },
+    {
+      "arabic_text": "\u0627\u0644\u0652\u062d\u064e\u0645\u0652\u062f\u064f \u0644\u0650\u0644\u064e\u0651\u0647\u0650 \u0627\u0644\u064e\u0651\u0630\u0650\u064a \u0623\u064e\u062d\u0652\u064a\u064e\u0627\u0646\u064e\u0627 \u0628\u064e\u0639\u0652\u062f\u064e \u0645\u064e\u0627 \u0623\u064e\u0645\u064e\u0627\u062a\u064e\u0646\u064e\u0627 \u0648\u064e\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u0650 \u0627\u0644\u0646\u064f\u0651\u0634\u064f\u0648\u0631\u064f",
+      "categories": null,
+      "context": null,
+      "created_at": "2025-09-23T08:47:57.705079Z",
+      "id": "7dec9d66-b3e7-4140-a0c9-684729c0ebd2",
+      "media": null,
+      "popularity_score": 0.9,
+      "slug": "morning-awakening",
+      "sources": null,
+      "status": "active",
+      "tags": null,
+      "title": "Morning Awakening Dua",
+      "translation": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection",
+      "translations": null,
+      "transliteration": "Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "updated_at": "2025-09-23T08:47:57.705079Z",
+      "variants": null,
+      "version": 1
+    }
+  ],
+  "page": 1,
+  "per_page": 100,
+  "total": 2,
+  "total_pages": 1
+}
+2025-09-24 06:46:30,403 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:30,410 - INFO - [PASS] GET /v1/duas
+2025-09-24 06:46:30,410 - INFO - Params: {
+  "has_audio": "invalid"
+}
+2025-09-24 06:46:30,411 - INFO - Response Code: 400
+2025-09-24 06:46:30,411 - INFO - Response: {
+  "raw_response": "Failed to deserialize query string: Invalid boolean value: invalid"
+}
+2025-09-24 06:46:30,411 - INFO - --------------------------------------------------------------------------------
+2025-09-24 06:46:30,412 - INFO - ✅ Error Cases tests completed
+2025-09-24 06:46:30,912 - INFO - 
+================================================================================
+2025-09-24 06:46:30,913 - INFO - TEST SUMMARY
+2025-09-24 06:46:30,914 - INFO - ================================================================================
+2025-09-24 06:46:30,914 - INFO - Total Tests: 85
+2025-09-24 06:46:30,914 - INFO - Passed: 85
+2025-09-24 06:46:30,915 - INFO - Failed: 0
+2025-09-24 06:46:30,915 - INFO - Success Rate: 100.0%
+2025-09-24 06:46:30,915 - INFO - End Time: 2025-09-24T06:46:30.915951
+2025-09-24 06:46:30,916 - INFO - 
+DISCOVERED TEST DATA:
+2025-09-24 06:46:30,917 - INFO - - Categories: 5
+2025-09-24 06:46:30,917 - INFO - - Tags: 5
+2025-09-24 06:46:30,917 - INFO - - Bundles: 3
+2025-09-24 06:46:30,917 - INFO - - Duas: 2
+2025-09-24 06:46:30,917 - INFO - - Sources: 0
+2025-09-24 06:46:30,917 - INFO - ================================================================================
+2025-09-24 06:46:30,917 - INFO - 
+================================================================================
+2025-09-24 06:46:30,918 - INFO - TEST SUMMARY
+2025-09-24 06:46:30,918 - INFO - ================================================================================
+2025-09-24 06:46:30,918 - INFO - Total Tests: 85
+2025-09-24 06:46:30,918 - INFO - Passed: 85
+2025-09-24 06:46:30,918 - INFO - Failed: 0
+2025-09-24 06:46:30,918 - INFO - Success Rate: 100.0%
+2025-09-24 06:46:30,919 - INFO - End Time: 2025-09-24T06:46:30.919036
+2025-09-24 06:46:30,919 - INFO - 
+DISCOVERED TEST DATA:
+2025-09-24 06:46:30,919 - INFO - - Categories: 5
+2025-09-24 06:46:30,919 - INFO - - Tags: 5
+2025-09-24 06:46:30,919 - INFO - - Bundles: 3
+2025-09-24 06:46:30,919 - INFO - - Duas: 2
+2025-09-24 06:46:30,919 - INFO - - Sources: 0
+2025-09-24 06:46:30,919 - INFO - ================================================================================

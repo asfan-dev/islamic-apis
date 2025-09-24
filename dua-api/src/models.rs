@@ -3,6 +3,30 @@ use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use uuid::Uuid;
 use validator::Validate;
+use serde::de::{self, Deserializer};
+
+
+fn deserialize_bool_from_string<'de, D>(deserializer: D) -> Result<Option<bool>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum BoolOrString {
+        Bool(bool),
+        String(String),
+    }
+
+    match Option::<BoolOrString>::deserialize(deserializer)? {
+        Some(BoolOrString::Bool(b)) => Ok(Some(b)),
+        Some(BoolOrString::String(s)) => match s.to_lowercase().as_str() {
+            "true" | "1" | "yes" => Ok(Some(true)),
+            "false" | "0" | "no" => Ok(Some(false)),
+            _ => Err(de::Error::custom(format!("Invalid boolean value: {}", s))),
+        },
+        None => Ok(None),
+    }
+}
 
 // ============= ENUMS =============
 
@@ -353,8 +377,13 @@ pub struct DuaQueryParams {
     pub repetitions: Option<String>,
     pub calendar: Option<String>,
     pub bundle: Option<String>,
+    
+    #[serde(default, deserialize_with = "deserialize_bool_from_string")]
     pub ruqyah: Option<bool>,
+
+    #[serde(default, deserialize_with = "deserialize_bool_from_string")]
     pub has_audio: Option<bool>,
+
     pub reciter_style: Option<String>,
     pub popularity_min: Option<f64>,
 }
